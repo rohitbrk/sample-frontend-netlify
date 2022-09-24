@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    const app = async () => {
+      const response = await fetch(
+        "https://mern-todos1.herokuapp.com/api/todos"
+      );
+      const data = await response.json();
+      console.log(data);
+      setTodos((prevValue) => data);
+    };
+    app();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {todos.map((todo) => (
+        <div key={todo._id}>
+          <h3>{todo.title}</h3>
+        </div>
+      ))}
     </div>
   );
 }
