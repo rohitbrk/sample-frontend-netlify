@@ -4,10 +4,11 @@ import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  CONST BACKEND_URL = process.env.BACKEND_URL;
   useEffect(() => {
     const app = async () => {
       const response = await fetch(
-        "https://mern-todos1.herokuapp.com/api/todos"
+        BACKEND_URL
       );
       const data = await response.json();
       console.log(data);
